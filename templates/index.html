@@ -1,0 +1,900 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LeadScout — Smart Lead Prioritization</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet"/>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎯</text></svg>"/>
+</head>
+<body>
+
+    <!-- Background Glow Effects -->
+    <div class="bg-glow bg-glow-1"></div>
+    <div class="bg-glow bg-glow-2"></div>
+    <div class="bg-glow bg-glow-3"></div>
+
+    <div class="container">
+        <!-- Header -->
+        <header>
+            <div class="logo">
+                <div class="logo-icon">🎯</div>
+                <div>
+                    <h1>LeadScout</h1>
+                    <span class="logo-sub">Smart Lead Prioritization</span>
+                </div>
+            </div>
+            <div class="header-status">
+                <span class="status-dot"></span>
+                <span class="status-text">AI Ready</span>
+            </div>
+        </header>
+
+        <!-- Navigation Tabs -->
+        <nav class="tabs">
+            <button class="tab-btn active" data-tab="predict">
+                <span class="tab-icon">🔮</span> Predict
+            </button>
+            <button class="tab-btn" data-tab="dashboard">
+                <span class="tab-icon">📊</span> Dashboard
+            </button>
+            <button class="tab-btn" data-tab="analytics">
+                <span class="tab-icon">📈</span> Analytics
+            </button>
+            <button class="tab-btn" data-tab="bulk">
+                <span class="tab-icon">📁</span> Bulk Predict
+            </button>
+            <button class="tab-btn" data-tab="leads">
+                <span class="tab-icon">👤</span> Lead Profile
+            </button>
+            <button class="tab-btn" data-tab="about">
+                <span class="tab-icon">ℹ️</span> About
+            </button>
+            <button class="tab-btn" data-tab="ai">
+                <span class="tab-icon">🤖</span> AI Assistant
+            </button>
+        </nav>
+
+        <!-- ============================================================ -->
+        <!-- TAB 1: PREDICT -->
+        <!-- ============================================================ -->
+        <div class="tab-content active" id="tab-predict">
+            <div class="main-grid">
+                <!-- Form Card -->
+                <div class="card form-card">
+                    <div class="card-header">
+                        <span class="card-icon">📋</span>
+                        <h2>Client Information</h2>
+                    </div>
+
+                    <form id="predictionForm" novalidate>
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="age">Age</label>
+                                <input type="number" id="age" value="35" min="18" max="100" required />
+                            </div>
+                            <div class="form-group">
+                                <label for="job">Job</label>
+                                <select id="job">
+                                    <option value="admin.">Admin.</option>
+                                    <option value="blue-collar">Blue-collar</option>
+                                    <option value="entrepreneur">Entrepreneur</option>
+                                    <option value="housemaid">Housemaid</option>
+                                    <option value="management" selected>Management</option>
+                                    <option value="retired">Retired</option>
+                                    <option value="self-employed">Self-employed</option>
+                                    <option value="services">Services</option>
+                                    <option value="student">Student</option>
+                                    <option value="technician">Technician</option>
+                                    <option value="unemployed">Unemployed</option>
+                                    <option value="unknown">Unknown</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="marital">Marital Status</label>
+                                <select id="marital">
+                                    <option value="married" selected>Married</option>
+                                    <option value="single">Single</option>
+                                    <option value="divorced">Divorced</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="education">Education</label>
+                                <select id="education">
+                                    <option value="secondary">Secondary</option>
+                                    <option value="tertiary" selected>Tertiary</option>
+                                    <option value="primary">Primary</option>
+                                    <option value="unknown">Unknown</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="balance">Balance (₦)</label>
+                                <input type="number" id="balance" value="1500" step="100" />
+                            </div>
+                            <div class="form-group">
+                                <label for="default">Default</label>
+                                <select id="default">
+                                    <option value="no" selected>No</option>
+                                    <option value="yes">Yes</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="contact">Contact Type</label>
+                                <select id="contact">
+                                    <option value="cellular" selected>Cellular</option>
+                                    <option value="telephone">Telephone</option>
+                                    <option value="unknown">Unknown</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="month">Month</label>
+                                <select id="month">
+                                    <option value="jan">Jan</option>
+                                    <option value="feb">Feb</option>
+                                    <option value="mar">Mar</option>
+                                    <option value="apr">Apr</option>
+                                    <option value="may" selected>May</option>
+                                    <option value="jun">Jun</option>
+                                    <option value="jul">Jul</option>
+                                    <option value="aug">Aug</option>
+                                    <option value="sep">Sep</option>
+                                    <option value="oct">Oct</option>
+                                    <option value="nov">Nov</option>
+                                    <option value="dec">Dec</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="day">Day</label>
+                                <input type="number" id="day" value="15" min="1" max="31" />
+                            </div>
+                            <div class="form-group">
+                                <label for="duration">Call Duration (sec)</label>
+                                <input type="number" id="duration" value="200" step="10" />
+                            </div>
+                            <div class="form-group">
+                                <label for="campaign">Campaign Attempts</label>
+                                <input type="number" id="campaign" value="2" min="1" max="63" />
+                            </div>
+                            <div class="form-group">
+                                <label for="pdays">Last Contact Days</label>
+                                <input type="number" id="pdays" value="-1" step="1" />
+                                <small>(-1 = Never contacted)</small>
+                            </div>
+                            <div class="form-group">
+                                <label for="previous">Previous Contacts</label>
+                                <input type="number" id="previous" value="1" min="0" />
+                            </div>
+                            <div class="form-group">
+                                <label for="poutcome">Previous Outcome</label>
+                                <select id="poutcome">
+                                    <option value="unknown">Unknown</option>
+                                    <option value="other">Other</option>
+                                    <option value="failure">Failure</option>
+                                    <option value="success" selected>Success</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="housing">Housing Loan</label>
+                                <select id="housing">
+                                    <option value="no">No</option>
+                                    <option value="yes" selected>Yes</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="loan">Personal Loan</label>
+                                <select id="loan">
+                                    <option value="no" selected>No</option>
+                                    <option value="yes">Yes</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="predict-btn" id="predictBtn">
+                            <span class="btn-icon">🔮</span>
+                            <span class="btn-text">Predict</span>
+                            <span class="btn-shimmer"></span>
+                        </button>
+                    </form>
+
+                    <div id="validationMessage" class="validation-message" style="display:none;">
+                        ⚠️ Please fill in all required fields before predicting.
+                    </div>
+                </div>
+
+                <!-- Results Card -->
+                <div class="card results-card" id="resultsCard">
+                    <div class="card-header">
+                        <span class="card-icon">📊</span>
+                        <h2>Prediction Result</h2>
+                    </div>
+
+                    <div class="results-content" id="resultsContent">
+                        <div class="result-empty" id="resultEmpty">
+                            <div class="empty-icon">🔮</div>
+                            <h3>Ready to Predict</h3>
+                            <p>Fill in the client details and click <strong>Predict</strong> to see the result.</p>
+                        </div>
+
+                        <div class="result-active" id="resultActive" style="display:none;">
+                            <div class="result-main">
+                                <div class="result-prediction">
+                                    <span class="result-label">Prediction</span>
+                                    <span class="result-value" id="predictionValue">—</span>
+                                </div>
+                                <div class="result-recommendation">
+                                    <span class="result-label">Recommendation</span>
+                                    <span class="result-value" id="recommendationValue">—</span>
+                                </div>
+                            </div>
+
+                            <div class="gauge-container">
+                                <div class="gauge-labels">
+                                    <span>Low</span>
+                                    <span>Medium</span>
+                                    <span>High</span>
+                                </div>
+                                <div class="gauge-track">
+                                    <div class="gauge-fill" id="gaugeFill" style="width: 0%;"></div>
+                                    <div class="gauge-thumb" id="gaugeThumb" style="left: 0%;">
+                                        <span class="gauge-value" id="gaugeValue">0%</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="result-details">
+                                <div class="detail-item">
+                                    <span class="detail-label">Probability of Yes</span>
+                                    <span class="detail-value" id="probYes">0%</span>
+                                </div>
+                                <div class="detail-item">
+                                    <span class="detail-label">Probability of No</span>
+                                    <span class="detail-value" id="probNo">0%</span>
+                                </div>
+                            </div>
+
+                            <div class="result-message" id="resultMessage">
+                                <p>📝 Enter client details and click Predict</p>
+                            </div>
+
+                            <div class="confidence-bar">
+                                <span class="confidence-label">Confidence</span>
+                                <div class="confidence-track">
+                                    <div class="confidence-fill" id="confidenceFill" style="width: 0%;"></div>
+                                </div>
+                                <span class="confidence-value" id="confidenceValue">0%</span>
+                            </div>
+                        </div>
+
+                        <!-- Score Breakdown - Add after confidence bar -->
+                        <div class="score-breakdown" id="scoreBreakdown" style="display:none; margin-top: 16px;">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+                                <h4 style="font-size: 0.9rem; color: rgba(255,255,255,0.7);">📊 Score Breakdown</h4>
+                                <div style="display: flex; align-items: center; gap: 8px;">
+                                    <span style="font-size: 0.7rem; color: rgba(255,255,255,0.3);">Total Score</span>
+                                    <span class="total-score" id="totalScore" style="font-size: 1.4rem; font-weight: 700; color: #00d4ff;">0</span>
+                                    <span style="font-size: 0.8rem; color: rgba(255,255,255,0.3);">/ 100</span>
+                                </div>
+                            </div>
+                            <div id="scoreFactors" style="display: flex; flex-direction: column; gap: 8px;">
+                                <!-- Factors will be inserted here -->
+                            </div>
+                            <div id="scoreInsights" style="margin-top: 12px; padding: 12px 16px; background: rgba(0, 128, 255, 0.05); border-radius: 8px; border-left: 3px solid #0080ff;">
+                                <h5 style="font-size: 0.75rem; color: rgba(255,255,255,0.4); margin-bottom: 6px;">💡 Actionable Insights</h5>
+                                <div id="insightsList" style="font-size: 0.85rem; color: rgba(255,255,255,0.7);">
+                                    <!-- Insights will be inserted here -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- TAB 2: DASHBOARD -->
+        <!-- ============================================================ -->
+        <div class="tab-content" id="tab-dashboard" style="display:none;">
+            <div class="dashboard-grid">
+                <div class="stat-card">
+                    <div class="stat-icon">📊</div>
+                    <div class="stat-info">
+                        <span class="stat-label">Total Predictions</span>
+                        <span class="stat-value" id="totalPredictions">0</span>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">✅</div>
+                    <div class="stat-info">
+                        <span class="stat-label">High Potential Leads</span>
+                        <span class="stat-value" id="highPotential">0</span>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">⏳</div>
+                    <div class="stat-info">
+                        <span class="stat-label">Low Priority Leads</span>
+                        <span class="stat-value" id="lowPriority">0</span>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">🎯</div>
+                    <div class="stat-info">
+                        <span class="stat-label">Conversion Rate</span>
+                        <span class="stat-value" id="conversionRate">0%</span>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">📈</div>
+                    <div class="stat-info">
+                        <span class="stat-label">Model Accuracy</span>
+                        <span class="stat-value" id="modelAccuracy">81.2%</span>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">🕐</div>
+                    <div class="stat-info">
+                        <span class="stat-label">Last Prediction</span>
+                        <span class="stat-value" id="lastPrediction" style="font-size:0.9rem;">—</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="chart-grid">
+                <div class="card chart-card">
+                    <h3>Prediction Distribution</h3>
+                    <div class="chart-container">
+                        <div class="chart-bar-container" id="distributionChart">
+                            <div class="chart-bar-item">
+                                <div class="chart-bar-fill high" id="chartHigh" style="height:0%;"></div>
+                                <span class="chart-bar-label">High</span>
+                                <span class="chart-bar-value" id="chartHighValue">0</span>
+                            </div>
+                            <div class="chart-bar-item">
+                                <div class="chart-bar-fill low" id="chartLow" style="height:0%;"></div>
+                                <span class="chart-bar-label">Low</span>
+                                <span class="chart-bar-value" id="chartLowValue">0</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card chart-card">
+                    <h3>Recent Activity</h3>
+                    <div class="activity-list" id="activityList">
+                        <p class="activity-empty">No recent activity</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- TAB 3: ANALYTICS -->
+        <!-- ============================================================ -->
+        <div class="tab-content" id="tab-analytics" style="display:none;">
+            <div class="card">
+                <div class="card-header">
+                    <span class="card-icon">📈</span>
+                    <h2>Analytics & Insights</h2>
+                </div>
+
+                <div class="analytics-grid">
+                    <div class="analytics-card">
+                        <h4>📊 Key Metrics</h4>
+                        <div class="metric-row">
+                            <span>Total Predictions</span>
+                            <span id="analyticsTotal">0</span>
+                        </div>
+                        <div class="metric-row">
+                            <span>High Potential Rate</span>
+                            <span id="analyticsHighRate">0%</span>
+                        </div>
+                        <div class="metric-row">
+                            <span>Model Confidence</span>
+                            <span id="analyticsConfidence">0%</span>
+                        </div>
+                        <div class="metric-row">
+                            <span>Average Probability</span>
+                            <span id="analyticsAvgProb">0%</span>
+                        </div>
+                    </div>
+
+                    <div class="analytics-card">
+                        <h4>🎯 Top Predictors</h4>
+                        <div class="predictor-list">
+                            <div class="predictor-item">
+                                <span>Previous Success</span>
+                                <div class="predictor-bar"><div class="predictor-fill" style="width:95%;"></div></div>
+                            </div>
+                            <div class="predictor-item">
+                                <span>Call Duration</span>
+                                <div class="predictor-bar"><div class="predictor-fill" style="width:78%;"></div></div>
+                            </div>
+                            <div class="predictor-item">
+                                <span>Job Type</span>
+                                <div class="predictor-bar"><div class="predictor-fill" style="width:62%;"></div></div>
+                            </div>
+                            <div class="predictor-item">
+                                <span>Balance</span>
+                                <div class="predictor-bar"><div class="predictor-fill" style="width:55%;"></div></div>
+                            </div>
+                            <div class="predictor-item">
+                                <span>Education</span>
+                                <div class="predictor-bar"><div class="predictor-fill" style="width:48%;"></div></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="analytics-card">
+                        <h4>📋 Job Distribution</h4>
+                        <div class="job-distribution" id="jobDistribution">
+                            <div class="job-item"><span>Management</span><span id="jobMgmt">0</span></div>
+                            <div class="job-item"><span>Blue-collar</span><span id="jobBlue">0</span></div>
+                            <div class="job-item"><span>Technician</span><span id="jobTech">0</span></div>
+                            <div class="job-item"><span>Services</span><span id="jobServices">0</span></div>
+                            <div class="job-item"><span>Retired</span><span id="jobRetired">0</span></div>
+                            <div class="job-item"><span>Other</span><span id="jobOther">0</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- TAB 4: BULK PREDICT -->
+        <!-- ============================================================ -->
+        <div class="tab-content" id="tab-bulk" style="display:none;">
+            <div class="card">
+                <div class="card-header">
+                    <span class="card-icon">📁</span>
+                    <h2>Bulk Predict</h2>
+                </div>
+
+                <div class="bulk-content">
+                    <p class="bulk-desc">Upload a CSV file with client data to predict multiple leads at once.</p>
+
+                    <div class="file-upload-area" id="fileUploadArea">
+                        <span class="upload-icon">📤</span>
+                        <p>Drag & drop your CSV file here</p>
+                        <span class="upload-sub">or click to browse</span>
+                        <input type="file" id="fileInput" accept=".csv" style="display:none;" />
+                    </div>
+
+                    <button class="predict-btn" id="bulkPredictBtn" style="display:none;">
+                        <span class="btn-icon">🚀</span>
+                        <span class="btn-text">Predict All</span>
+                    </button>
+
+                    <div id="bulkResults"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- TAB 5: LEAD PROFILE -->
+        <!-- ============================================================ -->
+        <div class="tab-content" id="tab-leads" style="display:none;">
+            <div class="card">
+                <div class="card-header">
+                    <span class="card-icon">👤</span>
+                    <h2>Lead Profile</h2>
+                </div>
+
+                <div class="lead-profile-content">
+                    <div class="lead-search">
+                        <input type="text" id="leadSearch" placeholder="Search by job, education, or ID..." />
+                        <button id="leadSearchBtn" class="search-btn">🔍 Search</button>
+                    </div>
+
+                    <div class="lead-table-container">
+                        <table class="lead-table" id="leadTable">
+                            <thead>
+                                <tr>
+                                    <th style="width:30px;">
+                                        <input type="checkbox" id="selectAllCheckbox" onchange="toggleAllCheckboxes(this)" />
+                                    </th>
+                                    <th>#</th>
+                                    <th>Job</th>
+                                    <th>Age</th>
+                                    <th>Balance</th>
+                                    <th>Prediction</th>
+                                    <th>Confidence</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="leadTableBody">
+                                <tr>
+                                    <td colspan="8" class="no-data">No leads yet. Start predicting to build your lead list.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="lead-detail" id="leadDetail" style="display:none;">
+                        <h4>📋 Lead Details</h4>
+                        <div id="leadDetailContent"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- TAB: AI ASSISTANT -->
+        <!-- ============================================================ -->
+        <!-- ============================================================ -->
+    <!-- TAB: AI ASSISTANT - MODERN & MOBILE RESPONSIVE -->
+    <!-- ============================================================ -->
+    <div class="tab-content" id="tab-ai" style="display:none;">
+        <div class="card">
+            <div class="card-header">
+                <span class="card-icon">🤖</span>
+                <h2>AI Lead Assistant</h2>
+                <span class="ai-status" id="aiStatus">🔄 Checking...</span>
+            </div>
+            
+            <div class="ai-chat-container">
+                <!-- Lead Selector -->
+                <div class="ai-lead-selector">
+                    <select id="aiLeadSelect">
+                        <option value="">Select a lead...</option>
+                    </select>
+                    <button onclick="loadTopLeads()" class="btn-secondary" title="Top Leads">⭐</button>
+                    <button onclick="loadLeadsDropdown()" class="btn-secondary" title="Refresh">🔄</button>
+                    <button onclick="clearChatHistory()" class="btn-secondary" title="Clear History">🗑️</button>
+                </div>
+                
+                <!-- Messages Area -->
+                <div class="ai-messages" id="aiMessages">
+                    <div class="ai-message bot">
+                        <div class="message-avatar">🤖</div>
+                        <div class="message-content">
+                            <p><strong>Hello! I'm your AI Lead Assistant powered by Groq.</strong></p>
+                            <p>I can help you with:</p>
+                            <ul>
+                                <li>📊 Lead summaries</li>
+                                <li>💡 Recommendations</li>
+                                <li>🎯 Call strategies</li>
+                                <li>📈 Lead analysis</li>
+                            </ul>
+                            <p>Select a lead below and ask me anything!</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Quick Actions -->
+                <div class="ai-quick-actions">
+                    <button onclick="quickAsk('summary')">📊 Summary</button>
+                    <button onclick="quickAsk('recommendations')">💡 Recommendations</button>
+                    <button onclick="quickAsk('call strategy')">🎯 Strategy</button>
+                    <button onclick="quickAsk('objections')">🛡️ Objections</button>
+                </div>
+                
+                <!-- Input Area -->
+                <div class="ai-input-area">
+                    <input type="text" id="aiQuestion" placeholder="Ask about this lead..." />
+                    <button onclick="askAI()" class="predict-btn" id="aiAskBtn">
+                        <span class="btn-icon">➤</span>
+                    </button>
+                    <button onclick="startVoiceInput()" class="btn-voice" id="voiceBtn" title="Voice Input">
+                        🎙️
+                    </button>
+                </div>
+                
+                <!-- Chat History Toggle -->
+                <div class="chat-history-toggle">
+                    <button onclick="toggleHistory()" class="btn-secondary">
+                        📜 Chat History (<span id="historyCount">0</span>)
+                    </button>
+                </div>
+                
+                <!-- History Panel -->
+                <div class="chat-history-panel" id="historyPanel" style="display:none;">
+                    <div id="historyList" class="history-list">
+                        <p class="history-empty">No chat history yet.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+        <!-- ============================================================ -->
+        <!-- TAB 6: ABOUT - SYSTEM OVERVIEW -->
+        <!-- ============================================================ -->
+        <!-- ============================================================ -->
+        <!-- TAB 6: ABOUT - SYSTEM OVERVIEW -->
+        <!-- ============================================================ -->
+        <div class="tab-content" id="tab-about" style="display:none;">
+            <div class="about-container">
+                <!-- Hero Section -->
+                <div class="about-hero">
+                    <div class="about-hero-content">
+                        <span class="about-badge">🚀 System Overview</span>
+                        <h1>LeadScout</h1>
+                        <p class="about-tagline">Smart Lead Prioritization for Bank Telemarketing Campaigns</p>
+                        <p class="about-subtitle">Leveraging Machine Learning to identify high-potential customers and optimize campaign ROI</p>
+                    </div>
+                </div>
+
+                <!-- Problem Statement -->
+                <div class="about-section">
+                    <div class="about-section-header">
+                        <span class="about-section-icon">🎯</span>
+                        <h2>Problem Statement</h2>
+                    </div>
+                    <div class="about-card">
+                        <div class="about-card-content">
+                            <p class="about-problem-text">
+                                Our marketing team is spending too much time and money calling clients who are unlikely to buy a term deposit. 
+                                The current "one-size-fits-all" approach results in:
+                            </p>
+                            <div class="about-problem-grid">
+                                <div class="about-problem-item">
+                                    <span class="problem-icon">💰</span>
+                                    <div>
+                                        <h4>High Cost</h4>
+                                        <p>Wasted resources on low-potential leads</p>
+                                    </div>
+                                </div>
+                                <div class="about-problem-item">
+                                    <span class="problem-icon">⏰</span>
+                                    <div>
+                                        <h4>Time Inefficiency</h4>
+                                        <p>Sales team spends hours on unproductive calls</p>
+                                    </div>
+                                </div>
+                                <div class="about-problem-item">
+                                    <span class="problem-icon">📉</span>
+                                    <div>
+                                        <h4>Low Conversion</h4>
+                                        <p>Typical conversion rate below 5%</p>
+                                    </div>
+                                </div>
+                                <div class="about-problem-item">
+                                    <span class="problem-icon">😤</span>
+                                    <div>
+                                        <h4>Customer Frustration</h4>
+                                        <p>Irrelevant calls annoy potential customers</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="about-importance">
+                                <span class="importance-icon">⚡</span>
+                                <p><strong>Why this matters:</strong> Every wasted call costs money and damages customer relationships. 
+                                A data-driven approach can increase conversion rates by up to 80% while reducing call volume by 70%.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Solution Overview -->
+                <div class="about-section">
+                    <div class="about-section-header">
+                        <span class="about-section-icon">💡</span>
+                        <h2>Project Overview / Solution</h2>
+                    </div>
+                    <div class="about-card">
+                        <div class="about-card-content">
+                            <p class="about-solution-text">
+                                LeadScout is a machine learning-powered lead prioritization system that predicts which clients are most likely to subscribe to a term deposit.
+                            </p>
+                            <div class="about-solution-grid">
+                                <div class="about-solution-item">
+                                    <div class="solution-icon">🤖</div>
+                                    <h4>Predictive Intelligence</h4>
+                                    <p>Uses historical campaign data to predict subscription likelihood</p>
+                                </div>
+                                <div class="about-solution-item">
+                                    <div class="solution-icon">🎯</div>
+                                    <h4>Smart Prioritization</h4>
+                                    <p>Ranks leads by probability, enabling focused sales efforts</p>
+                                </div>
+                                <div class="about-solution-item">
+                                    <div class="solution-icon">📊</div>
+                                    <h4>Real-time Dashboard</h4>
+                                    <p>Visual insights into campaign performance and lead quality</p>
+                                </div>
+                                <div class="about-solution-item">
+                                    <div class="solution-icon">📁</div>
+                                    <h4>Bulk Processing</h4>
+                                    <p>Analyze thousands of leads at once with CSV upload</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tools & Technologies -->
+                <div class="about-section">
+                    <div class="about-section-header">
+                        <span class="about-section-icon">🛠️</span>
+                        <h2>Tools & Technologies</h2>
+                    </div>
+                    <div class="about-card">
+                        <div class="about-card-content">
+                            <div class="about-tech-grid">
+                                <!-- Programming Languages -->
+                                <div class="about-tech-category">
+                                    <div class="tech-category-header">
+                                        <span class="tech-category-icon">🐍</span>
+                                        <h4>Programming Languages</h4>
+                                    </div>
+                                    <div class="tech-tags">
+                                        <span class="tech-tag">Python 3.9</span>
+                                        <span class="tech-tag">JavaScript</span>
+                                        <span class="tech-tag">HTML5</span>
+                                        <span class="tech-tag">CSS3</span>
+                                    </div>
+                                </div>
+
+                                <!-- Libraries & Frameworks -->
+                                <div class="about-tech-category">
+                                    <div class="tech-category-header">
+                                        <span class="tech-category-icon">📚</span>
+                                        <h4>Libraries & Frameworks</h4>
+                                    </div>
+                                    <div class="tech-tags">
+                                        <span class="tech-tag">Flask</span>
+                                        <span class="tech-tag">Pandas</span>
+                                        <span class="tech-tag">NumPy</span>
+                                        <span class="tech-tag">Scikit-learn</span>
+                                        <span class="tech-tag">Imbalanced-learn</span>
+                                        <span class="tech-tag">Joblib</span>
+                                        <span class="tech-tag">SQLite3</span>
+                                    </div>
+                                </div>
+
+                                <!-- Machine Learning -->
+                                <div class="about-tech-category">
+                                    <div class="tech-category-header">
+                                        <span class="tech-category-icon">📊</span>
+                                        <h4>Machine Learning</h4>
+                                    </div>
+                                    <div class="tech-tags">
+                                        <span class="tech-tag">Logistic Regression</span>
+                                        <span class="tech-tag">SMOTE</span>
+                                        <span class="tech-tag">StandardScaler</span>
+                                        <span class="tech-tag">OneHotEncoder</span>
+                                    </div>
+                                </div>
+
+                                <!-- Deployment -->
+                                <div class="about-tech-category">
+                                    <div class="tech-category-header">
+                                        <span class="tech-category-icon">🚀</span>
+                                        <h4>Deployment</h4>
+                                    </div>
+                                    <div class="tech-tags">
+                                        <span class="tech-tag">Flask Server</span>
+                                        <span class="tech-tag">SQLite</span>
+                                        <span class="tech-tag">ngrok</span>
+                                        <span class="tech-tag">Docker</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Methodology -->
+                <div class="about-section">
+                    <div class="about-section-header">
+                        <span class="about-section-icon">⚙️</span>
+                        <h2>Methodology & Implementation</h2>
+                    </div>
+                    <div class="about-card">
+                        <div class="about-card-content">
+                            <div class="about-methodology-grid">
+                                <div class="method-step">
+                                    <div class="step-number">1</div>
+                                    <div class="step-content">
+                                        <h4>Data Understanding & Preparation</h4>
+                                        <ul>
+                                            <li>Loaded Bank Marketing Dataset (45,000+ records)</li>
+                                            <li>Performed exploratory data analysis (EDA)</li>
+                                            <li>Handled missing values and outliers</li>
+                                            <li>Analyzed feature distributions and correlations</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="method-step">
+                                    <div class="step-number">2</div>
+                                    <div class="step-content">
+                                        <h4>Data Preprocessing</h4>
+                                        <ul>
+                                            <li>One-hot encoding for categorical variables</li>
+                                            <li>Standard scaling for numerical features</li>
+                                            <li>Train-test split (70/30)</li>
+                                            <li>SMOTE for handling class imbalance</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="method-step">
+                                    <div class="step-number">3</div>
+                                    <div class="step-content">
+                                        <h4>Model Building</h4>
+                                        <ul>
+                                            <li>Logistic Regression classifier</li>
+                                            <li>Cross-validation for hyperparameter tuning</li>
+                                            <li>Feature importance analysis</li>
+                                            <li>Model persistence with Joblib</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="method-step">
+                                    <div class="step-number">4</div>
+                                    <div class="step-content">
+                                        <h4>Web Application Development</h4>
+                                        <ul>
+                                            <li>Flask backend with RESTful API</li>
+                                            <li>SQLite database for lead storage</li>
+                                            <li>Interactive frontend with real-time predictions</li>
+                                            <li>Dashboard with analytics and visualizations</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Results / Demo -->
+                <div class="about-section">
+                    <div class="about-section-header">
+                        <span class="about-section-icon">📈</span>
+                        <h2>Results & Demo</h2>
+                    </div>
+                    <div class="about-card">
+                        <div class="about-card-content">
+                            <div class="about-results-grid">
+                                <div class="about-result-card">
+                                    <div class="result-metric">
+                                        <span class="metric-value">81.2%</span>
+                                        <span class="metric-label">Accuracy</span>
+                                    </div>
+                                    <p>Overall model correctness on test data</p>
+                                </div>
+                                <div class="about-result-card">
+                                    <div class="result-metric">
+                                        <span class="metric-value">0.81</span>
+                                        <span class="metric-label">Precision</span>
+                                    </div>
+                                    <p>When model says "Yes", it's correct 81% of the time</p>
+                                </div>
+                                <div class="about-result-card">
+                                    <div class="result-metric">
+                                        <span class="metric-value">0.80</span>
+                                        <span class="metric-label">Recall</span>
+                                    </div>
+                                    <p>Identifies 80% of all actual subscribers</p>
+                                </div>
+                                <div class="about-result-card">
+                                    <div class="result-metric">
+                                        <span class="metric-value">0.80</span>
+                                        <span class="metric-label">F1-Score</span>
+                                    </div>
+                                    <p>Excellent balance of precision and recall</p>
+                                </div>
+                            </div>
+
+                            
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Footer Note -->
+                <div class="about-footer-note">
+                    <p>Built with ❤️ using Python, Flask, and Machine Learning</p>
+                    <p class="about-version">LeadScout v2.0</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer>
+            <p>Powered by Machine Learning · LeadScout v2.0</p>
+        </footer>
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
